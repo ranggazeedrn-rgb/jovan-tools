@@ -1,0 +1,6 @@
+{
+  "name": "Jovann Tools",
+  "description": "Essential digital toolkit featuring Photo to Link converter with Direct URLs, Clean Landing Page & minimalist right-aligned navbar, multi-turn Gemini 3.5 AI, Admin Dashboard & API Key Vault, Firebase Auth & Firestore cloud sync, YouTube & Spotify downloaders, Dynamic QR Generator, and Custom E-KTP Mockup.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

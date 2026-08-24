@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // User profile document
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    // User chat conversations
+    match /users/{userId}/chats/{chatId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    // User saved tools history (QR, KTP, Download history)
+    match /users/{userId}/saved_items/{itemId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    // User API Keys Vault
+    match /users/{userId}/api_keys/{keyId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    // System Config & Telemetry
+    match /system_config/{configId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}

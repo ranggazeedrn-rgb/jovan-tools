@@ -1,0 +1,76 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile data stored under /users/{userId}",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "lastLoginAt": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Chat conversations stored under /users/{userId}/chats/{chatId}",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["user", "model", "system"] },
+        "content": { "type": "string" },
+        "model": { "type": "string" },
+        "persona": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["role", "content", "timestamp"]
+    },
+    "SavedItem": {
+      "title": "SavedItem",
+      "description": "Saved tools output or history stored under /users/{userId}/saved_items/{itemId}",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["qr", "ektp", "yt", "spotify"] },
+        "title": { "type": "string" },
+        "data": { "type": "object" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["type", "title", "createdAt"]
+    },
+    "ApiKeyConfig": {
+      "title": "ApiKeyConfig",
+      "description": "Configured API keys stored under /users/{userId}/api_keys/{keyId}",
+      "type": "object",
+      "properties": {
+        "serviceName": { "type": "string" },
+        "serviceType": { "type": "string", "enum": ["gemini", "rapidapi", "spotify", "youtube", "custom"] },
+        "apiKey": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "lastTestedAt": { "type": "string" }
+      },
+      "required": ["serviceName", "serviceType", "apiKey", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User account profiles"
+    },
+    "/users/{userId}/chats/{chatId}": {
+      "schema": "ChatMessage",
+      "description": "User AI Chat history with Gemini"
+    },
+    "/users/{userId}/saved_items/{itemId}": {
+      "schema": "SavedItem",
+      "description": "User saved history for tools"
+    },
+    "/users/{userId}/api_keys/{keyId}": {
+      "schema": "ApiKeyConfig",
+      "description": "User custom API key vault"
+    }
+  }
+}
